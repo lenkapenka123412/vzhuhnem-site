@@ -3,7 +3,7 @@ document.getElementById("app").innerHTML = `
 <header class="header">
 
     <div class="logo">
-        ⚡ Вжухнем — отдел производства клиентов
+      ${SITE_CONTENT.brand.name} — ${SITE_CONTENT.brand.tagline}
     </div>
 
     <a class="header-btn" href="${SITE_CONTENT.brand.telegramLink}">
