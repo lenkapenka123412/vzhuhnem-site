@@ -35,3 +35,173 @@ p {
   margin: 0;
   color: var(--color-muted);
 }
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:30px 60px;
+}
+
+.logo{
+    font-weight:700;
+    font-size:18px;
+}
+
+.header-btn{
+    text-decoration:none;
+    color:#1A1A1A;
+    background:#FFF048;
+    padding:12px 20px;
+    border-radius:999px;
+}
+
+.hero{
+    max-width:900px;
+    margin:80px auto;
+    text-align:center;
+}
+
+.hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:white;
+    color:#1A1A1A;
+    padding:12px 18px;
+    border-radius:999px;
+    box-shadow:0 8px 30px rgba(0,0,0,.08);
+}
+
+.pulse{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#1bd741;
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.6);}
+    100%{transform:scale(1);}
+}
+
+.hero-title{
+    margin-top:40px;
+    font-size:72px;
+    line-height:1;
+    color:#1A1A1A;
+}
+
+.yellow-wave{
+    text-decoration: underline wavy #FFF048;
+}
+
+.hero-subtitle{
+    max-width:800px;
+    margin:30px auto;
+    font-size:24px;
+    color:#555;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    margin-top:40px;
+    flex-wrap:wrap;
+}
+
+.btn-primary{
+    background:#FFF048;
+    color:#1A1A1A;
+    padding:18px 28px;
+    border-radius:16px;
+    text-decoration:none;
+    font-weight:700;
+}
+
+.btn-secondary{
+    background:white;
+    color:#1A1A1A;
+    border:1px solid #ddd;
+    padding:18px 28px;
+    border-radius:16px;
+    text-decoration:none;
+}
+
+.pain-section {
+  background: #111111;
+  color: #F6F6F6;
+  padding: 110px 60px;
+}
+
+.section-head {
+  max-width: 900px;
+  margin: 0 auto 60px;
+  text-align: center;
+}
+
+.eyebrow {
+  color: #FFF048;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+
+.section-head h2 {
+  font-size: 64px;
+  line-height: 1;
+  margin: 20px 0;
+}
+
+.section-text {
+  color: #D8D2CA;
+  font-size: 22px;
+}
+
+.pain-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.pain-card {
+  background: #1A1A1A;
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 28px;
+  padding: 28px;
+}
+
+.pain-card h3 {
+  font-size: 24px;
+  margin: 0 0 18px;
+}
+
+.pain-card p {
+  color: #CDB9A2;
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.pain-bottom {
+  max-width: 900px;
+  margin: 60px auto 0;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #FFF048;
+}
+
+@media (max-width: 900px) {
+  .pain-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-head h2 {
+    font-size: 42px;
+  }
+}
