@@ -1,0 +1,37 @@
+:root {
+  --color-bg: #1A1A1A;
+  --color-text: #F6F6F6;
+  --color-accent: #FFF048;
+  --color-muted: #8E8681;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+main {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 40px;
+}
+
+h1 {
+  font-size: 72px;
+  margin: 0 0 20px;
+  color: var(--color-accent);
+}
+
+p {
+  font-size: 24px;
+  margin: 0;
+  color: var(--color-muted);
+}
