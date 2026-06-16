@@ -106,57 +106,57 @@ app.innerHTML = `
         <div class="orbit-track orbit-k"></div>
         <div class="electron-orbit orbit-a">
           <span class="electron electron-gpt" title="GPT" aria-label="GPT">
-            <img src="images/11865326.png" alt="">
+            <img src="images/11865326.png" alt="" loading="eager" decoding="sync" fetchpriority="high">
           </span>
         </div>
         <div class="electron-orbit orbit-b">
           <span class="electron electron-claude" title="Claude" aria-label="Claude">
-            <img src="images/claude-icon-logo.png" alt="">
+            <img src="images/claude-icon-logo.png" alt="" loading="eager" decoding="sync" fetchpriority="high">
           </span>
         </div>
         <div class="electron-orbit orbit-c">
           <span class="electron electron-deepseek" title="DeepSeek" aria-label="DeepSeek">
-            <img src="images/deepseek-logo.png" alt="">
+            <img src="images/deepseek-logo.png" alt="" loading="eager" decoding="sync" fetchpriority="high">
           </span>
         </div>
         <div class="electron-orbit orbit-d">
           <span class="electron electron-qwen" title="Qwen" aria-label="Qwen">
-            <img src="images/Qwen_logo.svg.png" alt="">
+            <img src="images/Qwen_logo.svg.png" alt="" loading="eager" decoding="sync" fetchpriority="high">
           </span>
         </div>
         <div class="electron-orbit orbit-e">
           <span class="electron electron-yandex" title="AI" aria-label="AI">
-            <img src="images/18263538.png" alt="">
+            <img src="images/18263538.png" alt="" loading="eager" decoding="sync" fetchpriority="high">
           </span>
         </div>
         <div class="electron-orbit orbit-f">
           <span class="electron electron-flux" title="API" aria-label="API">
-            <img src="images/103093.png" alt="">
+            <img src="images/103093.png" alt="" loading="eager" decoding="sync" fetchpriority="high">
           </span>
         </div>
         <div class="electron-orbit orbit-g">
           <span class="electron electron-auto" title="Автоматизация" aria-label="Автоматизация">
-            <img src="images/8188077.png" alt="">
+            <img src="images/8188077.png" alt="" loading="eager" decoding="sync" fetchpriority="high">
           </span>
         </div>
         <div class="electron-orbit orbit-h">
           <span class="electron electron-strategy" title="Стратегия" aria-label="Стратегия">
-            <img src="images/Знак трех кругов3.png" alt="">
+            <img src="images/Знак трех кругов3.png" alt="" loading="eager" decoding="sync" fetchpriority="high">
           </span>
         </div>
         <div class="electron-orbit orbit-i">
           <span class="electron electron-avito" title="Авито" aria-label="Авито">
-            <img src="images/25c900896dfa8bf99a2aebcd6912968d_icon.webp" alt="">
+            <img src="images/25c900896dfa8bf99a2aebcd6912968d_icon.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
           </span>
         </div>
         <div class="electron-orbit orbit-j">
           <span class="electron electron-direct" title="Яндекс.Директ" aria-label="Яндекс.Директ">
-            <img src="images/2031828.webp" alt="">
+            <img src="images/2031828.webp" alt="" loading="eager" decoding="sync" fetchpriority="high">
           </span>
         </div>
         <div class="electron-orbit orbit-k">
           <span class="electron electron-target" title="Таргет" aria-label="Таргет">
-            <img src="images/11730140.png" alt="">
+            <img src="images/11730140.png" alt="" loading="eager" decoding="sync" fetchpriority="high">
           </span>
         </div>
       </div>
