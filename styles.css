@@ -374,6 +374,12 @@ h2 {
   overflow: visible;
 }
 
+.hero-system.is-paused *,
+.hero-system.is-paused *::before,
+.hero-system.is-paused *::after {
+  animation-play-state: paused !important;
+}
+
 .system-node {
   position: absolute;
   display: grid;
@@ -1735,6 +1741,12 @@ blockquote {
   border-radius: var(--radius);
   background: transparent;
   box-shadow: none;
+}
+
+.ai-quality-scene.is-paused *,
+.ai-quality-scene.is-paused *::before,
+.ai-quality-scene.is-paused *::after {
+  animation-play-state: paused !important;
 }
 
 .ai-inputs {

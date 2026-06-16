@@ -461,6 +461,22 @@ app.innerHTML = `
 
 applyTypography(app);
 
+function pauseWhenHidden(selector, threshold = 0.12) {
+  const target = document.querySelector(selector);
+  if (!target || typeof window === "undefined" || !("IntersectionObserver" in window)) return;
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      target.classList.toggle("is-paused", !entry.isIntersecting);
+    },
+    { threshold }
+  );
+
+  observer.observe(target);
+}
+
+pauseWhenHidden(".hero-system");
+
 function startAiQualityScene() {
   const scene = document.querySelector(".ai-quality-scene");
   if (!scene) return;
@@ -479,11 +495,35 @@ function startAiQualityScene() {
   const rejectedLabels = ["Подхалимство", "Галлюцинация", "Битая ссылка", "Левый факт", "Вода", "Штамп", "Без контекста", "Пластиковый текст"];
   const usefulDrafts = ["Сильная гипотеза", "Живой инсайт", "Черновик оффера", "Точная боль", "Рабочая структура"];
   const resultLabels = ["Эффективность", "Конверсия", "Лендинг", "Сильный оффер", "Сценарий Reels", "Контент-план", "Лид-магнит", "Попадание в ЦА", "Живой текст", "Заявки"];
+  const timers = new Set();
+  const activeAnimations = new Set();
+  let isRunning = false;
 
   const randomItem = (items) => items[Math.floor(Math.random() * items.length)];
   const updateStat = (name) => {
+    if (!isRunning) return;
     counters[name] += 1;
     stats[name].textContent = counters[name];
+  };
+  const schedule = (callback, delay) => {
+    if (!isRunning) return null;
+
+    const timer = setTimeout(() => {
+      timers.delete(timer);
+      if (isRunning) callback();
+    }, delay);
+
+    timers.add(timer);
+    return timer;
+  };
+  const trackAnimation = (animation, card) => {
+    activeAnimations.add(animation);
+    animation.addEventListener("finish", () => activeAnimations.delete(animation), { once: true });
+    animation.addEventListener("cancel", () => {
+      activeAnimations.delete(animation);
+      card.remove();
+    }, { once: true });
+    return animation;
   };
 
   inputLabels.forEach((label, index) => {
@@ -504,10 +544,12 @@ function startAiQualityScene() {
       results.lastElementChild.remove();
     }
 
-    setTimeout(() => item.classList.add("is-visible"), 30);
+    schedule(() => item.classList.add("is-visible"), 30);
   }
 
   function animateInput() {
+    if (!isRunning) return;
+
     const sceneWidth = scene.clientWidth || 560;
     const sceneHeight = scene.clientHeight || 560;
     const card = document.createElement("span");
@@ -520,19 +562,21 @@ function startAiQualityScene() {
     const aiX = sceneWidth * 0.36;
     const aiY = sceneHeight * (0.42 + Math.random() * 0.16);
 
-    const animation = card.animate(
+    const animation = trackAnimation(card.animate(
       [
         { transform: `translate(${startX}px, ${startY}px) scale(.88)`, opacity: 0 },
         { transform: `translate(${startX + sceneWidth * 0.1}px, ${startY - 24}px) scale(1)`, opacity: 1, offset: 0.2 },
         { transform: `translate(${aiX}px, ${aiY}px) scale(.7)`, opacity: 0 }
       ],
       { duration: 2600 + Math.random() * 700, easing: "cubic-bezier(.22,.82,.22,1)", fill: "forwards" }
-    );
+    ), card);
 
     animation.onfinish = () => card.remove();
   }
 
   function animateRaw() {
+    if (!isRunning) return;
+
     const sceneWidth = scene.clientWidth || 560;
     const sceneHeight = scene.clientHeight || 560;
     const isUseful = Math.random() > 0.64;
@@ -551,7 +595,7 @@ function startAiQualityScene() {
     const resultX = sceneWidth * 0.78;
     const resultY = sceneHeight * (0.26 + Math.random() * 0.34);
 
-    const animation = card.animate(
+    const animation = trackAnimation(card.animate(
       isUseful
         ? [
             { transform: `translate(${aiX}px, ${aiY}px) scale(.75)`, opacity: 0 },
@@ -568,14 +612,20 @@ function startAiQualityScene() {
             { transform: `translate(${discardX}px, ${discardY}px) scale(.42) rotate(-18deg)`, opacity: 0 }
           ],
       { duration: 3600 + Math.random() * 900, easing: "cubic-bezier(.22,.82,.22,1)", fill: "forwards" }
-    );
+    ), card);
 
-    setTimeout(() => {
+    schedule(() => {
       human.classList.add("is-checking");
-      setTimeout(() => human.classList.remove("is-checking"), 520);
+      schedule(() => human.classList.remove("is-checking"), 520);
     }, 2150);
 
     animation.onfinish = () => {
+      activeAnimations.delete(animation);
+      if (!isRunning) {
+        card.remove();
+        return;
+      }
+
       if (isUseful) {
         updateStat("approved");
         addResult();
@@ -587,12 +637,47 @@ function startAiQualityScene() {
   }
 
   function loop() {
+    if (!isRunning) return;
+
     animateInput();
-    setTimeout(animateRaw, 900 + Math.random() * 350);
-    setTimeout(loop, 1450 + Math.random() * 650);
+    schedule(animateRaw, 900 + Math.random() * 350);
+    schedule(loop, 1450 + Math.random() * 650);
   }
 
-  loop();
+  function pauseScene() {
+    isRunning = false;
+    scene.classList.add("is-paused");
+    human.classList.remove("is-checking");
+    timers.forEach((timer) => clearTimeout(timer));
+    timers.clear();
+    activeAnimations.forEach((animation) => animation.cancel());
+    activeAnimations.clear();
+    stream.replaceChildren();
+  }
+
+  function resumeScene() {
+    if (isRunning) return;
+    isRunning = true;
+    scene.classList.remove("is-paused");
+    loop();
+  }
+
+  if (typeof window !== "undefined" && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          resumeScene();
+        } else {
+          pauseScene();
+        }
+      },
+      { threshold: 0.16 }
+    );
+
+    observer.observe(scene);
+  } else {
+    resumeScene();
+  }
 }
 
 startAiQualityScene();
